@@ -26,6 +26,7 @@ func main() {
 	authHandler := &handlers.AuthHandler{DB: db, JWTSecret: cfg.JWTSecret}
 	userHandler := &handlers.UserHandler{DB: db}
 	taskHandler := &handlers.TaskHandler{DB: db}
+	noteHandler := &handlers.NoteHandler{DB: db}
 
 	r := chi.NewRouter()
 	r.Use(chimiddleware.Logger)
@@ -57,6 +58,12 @@ func main() {
 			r.Post("/", taskHandler.Create)
 			r.Patch("/{id}", taskHandler.Update)
 			r.Delete("/{id}", taskHandler.Delete)
+		})
+
+		r.Route("/notes", func(r chi.Router) {
+			r.Get("/", noteHandler.List)
+			r.Post("/", noteHandler.Create)
+			r.Delete("/{id}", noteHandler.Delete)
 		})
 	})
 

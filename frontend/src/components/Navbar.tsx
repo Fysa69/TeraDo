@@ -8,6 +8,7 @@ import { useAuth } from "@/lib/auth-context";
 const links = [
   { href: "/dashboard", label: "Tasks" },
   { href: "/calendar", label: "Calendar" },
+  { href: "/notes", label: "Notes" }
 ];
 
 export function Navbar() {

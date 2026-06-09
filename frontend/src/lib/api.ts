@@ -25,6 +25,13 @@ export type AuthResponse = {
   user: User;
 };
 
+export type Note = {
+  id: number;
+  title: string;
+  content: string;
+  created_at: string;
+};
+
 export class ApiError extends Error {
   status: number;
 
@@ -91,4 +98,9 @@ export const api = {
   }>) => request<Task>(`/tasks/${id}`, { method: "PATCH", body: JSON.stringify(payload) }, token),
 
   deleteTask: (token: string, id: number) => request<void>(`/tasks/${id}`, { method: "DELETE" }, token),
+
+  listNotes: (token: string) => request<Note[]>("/notes", {}, token),
+  createNote: (token: string, payload: { title: string; content: string }) => request<Note>("/notes", { method: "POST", body: JSON.stringify(payload) }, token),
+  deleteNote: (token: string, id: number) => request<void>(`/notes/${id}`, { method: "DELETE" }, token),
+
 };
